@@ -21,12 +21,13 @@ export function Badge({
 }
 
 /**
- * HTTP-status-styled badge. Doubles as the site's project-status indicator:
- * live projects read "200 OK", pending ones read "202 COMING SOON" — an
- * honest, on-brand alternative to a generic "coming soon" pill.
+ * HTTP-status-styled badge.
+ * "COMPLETED" reads "200 OK" (Teal), other statuses read "202 COMING SOON" (Amber).
  */
-export function StatusBadge({ status }: { status: "live" | "coming-soon" }) {
-  const isLive = status === "live";
+export function StatusBadge({ status }: { status: string }) {
+  // Kita cek jika status dari data adalah "COMPLETED" (huruf besar/kecil)
+  const isLive = status.toLowerCase() === "completed" || status.toLowerCase() === "live";
+  
   return (
     <span
       className={cn(

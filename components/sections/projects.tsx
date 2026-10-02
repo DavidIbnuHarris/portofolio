@@ -4,8 +4,18 @@ import { Github, ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { StatusBadge } from "@/components/ui/badge";
 import { Reveal } from "@/components/animations/reveal";
-import { projects } from "@/lib/data";
-import { Project } from "@/types";
+import { portfolioData } from "@/data/portfolio";
+
+// Mendefinisikan tipe sesuai dengan data di portfolio.ts
+type Project = {
+  id: string;
+  title: string;
+  description: string;
+  stack: string[];
+  status: string;
+  githubUrl: string;
+  demoUrl: string;
+};
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
@@ -15,19 +25,20 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <span className="font-mono text-[11px] text-ink-faint">
             /projects/{project.id}
           </span>
+          {/* StatusBadge bawaan template mungkin butuh penyesuaian jika string 'status'-nya berbeda */}
           <StatusBadge status={project.status} />
         </div>
 
         <div className="p-5">
           <h3 className="font-mono text-lg font-medium text-ink">
-            {project.name}
+            {project.title}
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-ink-muted">
             {project.description}
           </p>
 
           <div className="mt-5 flex flex-wrap gap-1.5">
-            {project.tech.map((t) => (
+            {project.stack.map((t) => (
               <span
                 key={t}
                 className="rounded-sm border border-base-border bg-base px-2 py-1 font-mono text-[10.5px] text-teal"
@@ -37,22 +48,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             ))}
           </div>
 
-          <ul className="mt-5 grid grid-cols-2 gap-x-4 gap-y-1.5">
-            {project.highlights.map((h) => (
-              <li
-                key={h}
-                className="flex items-center gap-1.5 text-xs text-ink-muted"
-              >
-                <span className="h-1 w-1 shrink-0 rounded-full bg-amber" />
-                {h}
-              </li>
-            ))}
-          </ul>
-
           <div className="mt-6 flex items-center gap-4 border-t border-base-border pt-4">
-            {project.liveUrl ? (
+            {project.demoUrl ? (
               <a
-                href={project.liveUrl}
+                href={project.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 font-mono text-xs text-ink hover:text-amber transition-colors"
@@ -92,11 +91,11 @@ export function Projects() {
         <SectionHeading
           eyebrow="GET /api/projects"
           title="Projects"
-          description="A selection of full-stack builds — most are in active development, shipped incrementally rather than all at once."
+          description="A selection of my work focusing on Web Development, AI/Machine Learning explorations, and system implementations."
         />
 
         <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((project, i) => (
+          {portfolioData.projects.map((project, i) => (
             <ProjectCard key={project.id} project={project} index={i} />
           ))}
         </div>

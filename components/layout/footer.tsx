@@ -1,27 +1,26 @@
-import { profile, socials } from "@/lib/data";
+import { portfolioData } from "@/data/portfolio";
 
 export function Footer() {
+  const year = new Date().getFullYear();
+  
   return (
-    <footer className="border-t border-base-border">
-      <div className="container-px mx-auto flex max-w-6xl flex-col items-center gap-4 py-8 text-center md:flex-row md:justify-between md:text-left">
-        <p className="font-mono text-xs text-ink-faint">
-          <span className="text-teal">{"// "}</span>
-          &copy; {new Date().getFullYear()} {profile.name}. Built with Next.js
-          &amp; Tailwind CSS.
+    <footer className="border-t border-base-border bg-base py-10 font-mono text-xs text-ink-faint">
+      <div className="container-px mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        <p>
+          &copy; {year} {portfolioData.identity.name}. All rights reserved.
         </p>
-        <div className="flex gap-5">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-xs text-ink-faint transition-colors hover:text-amber"
-            >
-              {s.label}
-            </a>
-          ))}
-        </div>
+        <p>
+          Original template design by{" "}
+          <a
+            href="https://github.com/jitanshu-27/jitanshu-portfolio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-ink-muted hover:text-amber transition-colors underline decoration-base-border underline-offset-4"
+          >
+            Jitanshu
+          </a>
+          .
+        </p>
       </div>
     </footer>
   );

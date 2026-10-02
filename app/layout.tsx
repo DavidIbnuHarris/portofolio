@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { JetBrains_Mono, Inter } from "next/font/google";
 import "./globals.css";
-import { profile, socials } from "@/lib/data";
+import { portfolioData } from "@/data/portfolio";
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
@@ -15,40 +15,19 @@ const inter = Inter({
   display: "swap",
 });
 
-const siteUrl = "https://jitanshu.dev"; // TODO: replace with your real domain once deployed
+const siteUrl = "https://infix-portfolio.vercel.app"; // TODO: Ganti dengan domain Vercel Anda nanti
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: {
-    default: `${profile.name} — ${profile.fullTitle}`,
-    template: `%s — ${profile.name}`,
-  },
-  description: profile.tagline,
-  keywords: [
-    "Jitanshu",
-    "MERN Stack Developer",
-    "Full Stack Developer",
-    "React Developer",
-    "Node.js Developer",
-    "Frontend Developer India",
-  ],
-  authors: [{ name: profile.name, url: siteUrl }],
-  creator: profile.name,
+  title: "INFiX — Informatics Engineering Student",
+  description: portfolioData.identity.about,
   openGraph: {
-    type: "website",
+    title: "INFiX — Informatics Engineering Student",
+    description: portfolioData.identity.about,
     url: siteUrl,
-    title: `${profile.name} — ${profile.fullTitle}`,
-    description: profile.tagline,
-    siteName: `${profile.name} | Portfolio`,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${profile.name} — ${profile.fullTitle}`,
-    description: profile.tagline,
-  },
-  robots: {
-    index: true,
-    follow: true,
+    siteName: "INFiX Portfolio",
+    locale: "id_ID",
+    type: "website",
   },
 };
 
@@ -57,18 +36,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // SEO Schema menggunakan data INFiX
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: profile.name,
-    jobTitle: profile.fullTitle,
-    email: profile.email,
+    name: portfolioData.identity.name,
+    jobTitle: portfolioData.identity.role,
+    email: portfolioData.identity.contact.email,
     url: siteUrl,
-    address: {
-      "@type": "PostalAddress",
-      addressCountry: profile.location,
-    },
-    sameAs: socials.map((s) => s.url),
   };
 
   return (

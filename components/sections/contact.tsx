@@ -1,16 +1,17 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Github, Linkedin, Send } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/animations/reveal";
 import { Button } from "@/components/ui/button";
-import { profile, socials } from "@/lib/data";
+import { portfolioData } from "@/data/portfolio";
 
 type SubmitState = "idle" | "loading" | "success" | "error";
 
 export function Contact() {
   const [state, setState] = useState<SubmitState>("idle");
+  const { contact } = portfolioData.identity;
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -19,8 +20,7 @@ export function Contact() {
     const data = {
       name: (form.elements.namedItem("name") as HTMLInputElement).value,
       email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      message: (form.elements.namedItem("message") as HTMLTextAreaElement)
-        .value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
     };
 
     try {
@@ -37,60 +37,55 @@ export function Contact() {
     }
   }
 
+  // Mengambil username dari URL untuk ditampilkan di UI
+  const githubUsername = contact.github.split('/').pop() || "GitHub";
+  const linkedinUsername = contact.linkedin.split('/').pop() || "LinkedIn";
+
   return (
     <section id="contact" className="section-py scroll-mt-16 bg-base-surface/40">
       <div className="container-px mx-auto max-w-6xl">
         <SectionHeading
           eyebrow="POST /api/contact"
-          title="Let's build something"
-          description="Open to SDE-1, frontend, and full-stack roles. The fastest way to reach me is email, or send a message below."
+          title="Let's Connect"
+          description="Terbuka untuk diskusi mengenai Web Development, eksplorasi AI/ML, atau peluang kolaborasi. Hubungi saya melalui form di bawah atau kirim email secara langsung."
         />
 
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <Reveal className="space-y-4">
             <a
-              href={`mailto:${profile.email}`}
+              href={`mailto:${contact.email}`}
               className="flex items-center gap-4 rounded-md border border-base-border bg-base-surface p-4 transition-colors hover:border-amber/40"
             >
               <Mail size={18} className="text-amber" />
               <div>
                 <p className="font-mono text-[11px] text-ink-faint">Email</p>
-                <p className="text-sm text-ink">{profile.email}</p>
+                <p className="text-sm text-ink">{contact.email}</p>
               </div>
             </a>
             <a
-              href={`tel:${profile.phone.replace(/\s+/g, "")}`}
+              href={contact.github}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-4 rounded-md border border-base-border bg-base-surface p-4 transition-colors hover:border-amber/40"
             >
-              <Phone size={18} className="text-amber" />
+              <Github size={18} className="text-amber" />
               <div>
-                <p className="font-mono text-[11px] text-ink-faint">Phone</p>
-                <p className="text-sm text-ink">{profile.phone}</p>
+                <p className="font-mono text-[11px] text-ink-faint">GitHub</p>
+                <p className="text-sm text-ink">{githubUsername}</p>
               </div>
             </a>
-            <div className="flex items-center gap-4 rounded-md border border-base-border bg-base-surface p-4">
-              <MapPin size={18} className="text-amber" />
+            <a
+              href={contact.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-4 rounded-md border border-base-border bg-base-surface p-4 transition-colors hover:border-amber/40"
+            >
+              <Linkedin size={18} className="text-amber" />
               <div>
-                <p className="font-mono text-[11px] text-ink-faint">
-                  Location
-                </p>
-                <p className="text-sm text-ink">{profile.location}</p>
+                <p className="font-mono text-[11px] text-ink-faint">LinkedIn</p>
+                <p className="text-sm text-ink">{linkedinUsername}</p>
               </div>
-            </div>
-
-            <div className="flex gap-4 pt-2">
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-mono text-xs text-ink-muted hover:text-amber transition-colors"
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
+            </a>
           </Reveal>
 
           <Reveal delay={0.1}>
@@ -143,7 +138,7 @@ export function Contact() {
                     required
                     rows={5}
                     className="w-full resize-none rounded-md border border-base-border bg-base px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-amber"
-                    placeholder="What are you looking to build?"
+                    placeholder="Apa yang ingin Anda diskusikan?"
                   />
                 </div>
               </div>
@@ -160,7 +155,7 @@ export function Contact() {
                 )}
                 {state === "error" && (
                   <span className="font-mono text-xs text-amber">
-                    500 — couldn&apos;t send, please email directly
+                    500 — error, please email directly
                   </span>
                 )}
               </div>

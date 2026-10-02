@@ -1,23 +1,23 @@
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/animations/reveal";
-import { profile } from "@/lib/data";
+import { portfolioData } from "@/data/portfolio";
 import { Terminal, GraduationCap, Compass } from "lucide-react";
 
 const facts = [
   {
     icon: GraduationCap,
     label: "Background",
-    value: "BCA Graduate",
+    value: portfolioData.identity.role,
   },
   {
     icon: Terminal,
     label: "Focus",
-    value: "Full Stack Development",
+    value: "Web Development & Cybersecurity",
   },
   {
     icon: Compass,
-    label: "Currently exploring",
-    value: "AI agents, cloud & DevOps",
+    label: "Exploring",
+    value: "AI & Machine Learning",
   },
 ];
 
@@ -30,7 +30,7 @@ export function About() {
         <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr]">
           <Reveal>
             <p className="text-balance text-lg leading-relaxed text-ink-muted md:text-xl">
-              {profile.bio}
+              {portfolioData.identity.about}
             </p>
           </Reveal>
 

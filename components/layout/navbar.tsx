@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { navRoutes, profile } from "@/lib/data";
+// Menghapus import profile dari @/lib/data, dan menggunakan portfolioData kita
+import { navRoutes } from "@/data/portfolio"; 
+import { portfolioData } from "@/data/portfolio";
 import { Button } from "@/components/ui/button";
 
 function MethodTag({ method }: { method: string }) {
@@ -46,7 +48,8 @@ export function Navbar() {
           className="font-mono text-sm font-medium text-ink hover:text-amber transition-colors"
         >
           <span className="text-ink-faint">~/</span>
-          {profile.name.toLowerCase()}
+          {/* Mengambil nama dari portfolioData INFiX (David Ibnu Harris) */}
+          {portfolioData.identity.name.split(" ")[0].toLowerCase()}
         </a>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -65,7 +68,7 @@ export function Navbar() {
         <div className="hidden md:block">
           <a href="#contact">
             <Button size="sm" variant="outline">
-              hire_me()
+              connect()
             </Button>
           </a>
         </div>
