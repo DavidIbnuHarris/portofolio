@@ -15,17 +15,17 @@ const inter = Inter({
   display: "swap",
 });
 
-const siteUrl = "https://infix-portfolio.vercel.app"; // TODO: Ganti dengan domain Vercel Anda nanti
+const siteUrl = "https://portofolio-sand-kappa-93.vercel.app/"; // TODO: Ganti dengan domain Vercel Anda nanti
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "INFiX — Informatics Engineering Student",
+  title: "David Ibnu Harris — Informatics Engineering Student",
   description: portfolioData.identity.about,
   openGraph: {
-    title: "INFiX — Informatics Engineering Student",
+    title: "David Ibnu Harris — Informatics Engineering Student",
     description: portfolioData.identity.about,
     url: siteUrl,
-    siteName: "INFiX Portfolio",
+    siteName: "David Ibnu Harris Portfolio",
     locale: "id_ID",
     type: "website",
   },
